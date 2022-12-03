@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "541878262817",
+    "project_id": "tezo-instagram-clone",
+    "storage_bucket": "tezo-instagram-clone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541878262817:android:5d82509de57bcc784dd760",
+        "android_client_info": {
+          "package_name": "com.example.tezo_instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541878262817-bm9jnt6kcgpo7kh8ktct7suqt4jj2gje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChTf43_YywQRlWP4xOsuoU4o0K85zxzSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541878262817-bm9jnt6kcgpo7kh8ktct7suqt4jj2gje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
