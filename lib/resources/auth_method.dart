@@ -45,7 +45,7 @@ class AuthMethods {
         );
 
         await firestore.collection("users").doc(cred.user!.uid).set(user
-            .toJson()); // this does the same work as the next block of line, it uses the user model.
+            .toJson(),); // this does the same work as the next block of line, it uses the user model.
 
         // await firestore.collection("users").doc(cred.user!.uid).set({
         //   'username': username,

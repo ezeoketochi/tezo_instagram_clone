@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
+// import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
 import 'package:tezo_instagram/Responsive/responsive.dart';
 import 'package:tezo_instagram/Responsive/web_screen_layout.dart';
 import 'package:tezo_instagram/Screens/homescreen.dart';
 import 'package:tezo_instagram/Screens/login.dart';
-import 'package:tezo_instagram/Screens/sign_up.dart';
+// import 'package:tezo_instagram/Screens/sign_up.dart';
 import 'package:tezo_instagram/utils/colors.dart';
 
 void main() async {
@@ -49,7 +49,7 @@ void main() async {
                 ),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting) { 
               return const Center(
                 child: CircularProgressIndicator(
                   color: primaryColor,

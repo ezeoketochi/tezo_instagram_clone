@@ -74,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       passwordController.clear();
       usernameController.clear();
       bioController.clear();
-      image!.clear();
+      // image!.clear();
     }
   }
 
