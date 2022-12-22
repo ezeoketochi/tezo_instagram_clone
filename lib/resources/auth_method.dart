@@ -12,7 +12,7 @@ class AuthMethods {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
-  Future <model.Users> getUserDetails() async{
+  Future <model.Users> getUserDetails() async{      //this method was used with the provider to avoid calling snapshot on each page     
     User currentUser = auth.currentUser!;
 
     DocumentSnapshot snap = await firestore.collection("users").doc(currentUser.uid).get();

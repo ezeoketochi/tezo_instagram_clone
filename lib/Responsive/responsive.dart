@@ -19,38 +19,27 @@ class ResponsiveLayout extends StatefulWidget {
 }
 
 class _ResponsiveLayoutState extends State<ResponsiveLayout> {
-
-
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
+    addData() async {
+      UserProvider _userprovider = Provider.of(context, listen: false);
+      await _userprovider.refreshUser();
+    }
 
+    @override
+    void initState() {
+      addData();
+      super.initState();
+    }
 
- addData () async {
-    UserProvider _userprovider = Provider.of(context, listen: false);
-     _userprovider.refreshUser();
+    return LayoutBuilder(
+      builder: ((context, constraints) {
+        if (constraints.maxWidth > webScreenSize) {
+          return widget.webScreenLayout;
+        }
+
+        return widget.mobileScreenLayout;
+      }),
+    );
   }
-
-
- @override
-  void initState() {
-    addData();
-    super.initState();
-  }
-
-
-    return LayoutBuilder(builder: ((context, constraints) {
-      if (constraints.maxWidth > webScreenSize) {
-        return widget.webScreenLayout;
-      }
-
-      return widget.mobileScreenLayout;
-    }),);
-  }
-
-
-
- 
 }
-
-
- 

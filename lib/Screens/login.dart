@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tezo_instagram/Screens/homescreen.dart';
+import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
+import 'package:tezo_instagram/Responsive/responsive.dart';
+import 'package:tezo_instagram/Responsive/web_screen_layout.dart';
 import 'package:tezo_instagram/Screens/sign_up.dart';
 import 'package:tezo_instagram/resources/auth_method.dart';
 import 'package:tezo_instagram/utils/colors.dart';
@@ -28,22 +30,18 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
   }
 
-
   void loginUser() async {
     setState(() {
       isLoading = true;
     });
 
-
     String res = await AuthMethods().loginUser(
         email: emailController.text, password: passwordController.text);
-
 
     if (res != "success") {
       setState(() {
         isLoading = false;
       });
-
 
       showSnackBar(res, context);
       debugPrint(res);
@@ -52,11 +50,15 @@ class _LoginScreenState extends State<LoginScreen> {
         isLoading = false;
       });
 
-
       showSnackBar("Login Successful", context);
       Future.delayed(const Duration(milliseconds: 100), () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(
+            builder: (context) => const ResponsiveLayout(
+              mobileScreenLayout: MobileView(),
+              webScreenLayout: WebScreen(),
+            ),
+          ),
         );
       });
 
@@ -123,7 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
-                        : Text("Log In"),
+                        : const Text(
+                            "Log In",
+                          ),
                   ),
                 ),
                 Flexible(

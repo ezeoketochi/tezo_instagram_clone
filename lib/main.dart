@@ -3,10 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
 // import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
 import 'package:tezo_instagram/Responsive/responsive.dart';
 import 'package:tezo_instagram/Responsive/web_screen_layout.dart';
-import 'package:tezo_instagram/Screens/homescreen.dart';
 import 'package:tezo_instagram/Screens/login.dart';
 import 'package:tezo_instagram/providers/user_provider.dart';
 // import 'package:tezo_instagram/Screens/sign_up.dart';
@@ -25,15 +25,19 @@ void main() async {
       ),
     );
   } else {
-    await Firebase.initializeApp(); 
+    await Firebase.initializeApp();
   }
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => UserProvider(),),],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
+      ],
       child: MaterialApp(
           theme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: mobileBackgroundColor,
-          ), 
+          ),
           debugShowCheckedModeBanner: false,
           title: "Instagram Clone",
           home: StreamBuilder(
@@ -42,7 +46,7 @@ void main() async {
               if (snapshot.connectionState == ConnectionState.active &&
                   snapshot.hasData) {
                 return const ResponsiveLayout(
-                  mobileScreenLayout: HomeScreen(),
+                  mobileScreenLayout: MobileView(),
                   webScreenLayout: WebScreen(),
                 );
               } else if (snapshot.connectionState == ConnectionState.active &&
@@ -53,7 +57,7 @@ void main() async {
                   ),
                 );
               }
-              if (snapshot.connectionState == ConnectionState.waiting) { 
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
                     color: primaryColor,
