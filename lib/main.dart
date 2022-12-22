@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // import 'package:tezo_instagram/Responsive/mobile_screen_layout.dart';
 import 'package:tezo_instagram/Responsive/responsive.dart';
 import 'package:tezo_instagram/Responsive/web_screen_layout.dart';
 import 'package:tezo_instagram/Screens/homescreen.dart';
 import 'package:tezo_instagram/Screens/login.dart';
+import 'package:tezo_instagram/providers/user_provider.dart';
 // import 'package:tezo_instagram/Screens/sign_up.dart';
 import 'package:tezo_instagram/utils/colors.dart';
 
@@ -23,41 +25,44 @@ void main() async {
       ),
     );
   } else {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(); 
   }
   runApp(
-    MaterialApp(
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: mobileBackgroundColor,
-        ),
-        debugShowCheckedModeBanner: false,
-        title: "Instagram Clone",
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.active &&
-                snapshot.hasData) {
-              return const ResponsiveLayout(
-                mobileScreenLayout: HomeScreen(),
-                webScreenLayout: WebScreen(),
-              );
-            } else if (snapshot.connectionState == ConnectionState.active &&
-                snapshot.hasError) {
-              return Center(
-                child: Text(
-                  "${snapshot.error}",
-                ),
-              );
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) { 
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: primaryColor,
-                ),
-              );
-            }
-            return const LoginScreen();
-          },
-        )),
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider(),),],
+      child: MaterialApp(
+          theme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: mobileBackgroundColor,
+          ), 
+          debugShowCheckedModeBanner: false,
+          title: "Instagram Clone",
+          home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active &&
+                  snapshot.hasData) {
+                return const ResponsiveLayout(
+                  mobileScreenLayout: HomeScreen(),
+                  webScreenLayout: WebScreen(),
+                );
+              } else if (snapshot.connectionState == ConnectionState.active &&
+                  snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    "${snapshot.error}",
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) { 
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: primaryColor,
+                  ),
+                );
+              }
+              return const LoginScreen();
+            },
+          )),
+    ),
   );
 }
